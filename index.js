@@ -27,29 +27,35 @@ class Transaction  {
     this.amount = amount;
     this.account = account;
   }
+  commit() {
+    this.account.balance += this.value;
+  }
 }
 
 ////////////////////////////// Withdrawl class
 class Withdrawal extends Transaction {
-  commit() {
-    this.account.balance -= this.amount;
+  get value() {
+    return -this.amount;
   }
 }
 
 ////////////////////////////// Deposit class
 class Deposit extends Transaction {
-  commit() {
-    this.account.balance += this.amount
+  get value() {
+    return this.amount;
   }
 }
 
 
-const myAccount = new account("Canada's Wonderland")
 
 
 ///////////////////////////////////
 // DRIVER CODE BELOW
 // We use the code below to "drive" the application logic above and make sure it's working as expected
+
+const myAccount = new account(`Canada's Wonderland`)
+
+console.log('Starting balance', myAccount.balance)
 
 transaction3 = new Deposit(60000, myAccount);
 transaction3.commit();
